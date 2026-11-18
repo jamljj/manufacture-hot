@@ -158,7 +158,11 @@ function Story({ c, slot, dated, className = "" }: { c: ReportCitation; slot: st
       {c.available ? (
         <>
           <h3 className="mt-3 text-[19px] font-bold leading-[1.5] tracking-[-0.01em] text-ink [text-wrap:pretty] @[880px]:text-[20px]">
-            {c.itemId ? (
+            {c.sourceUrl ? (
+              <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
+                {c.title}
+              </a>
+            ) : c.itemId ? (
               <IntentLink viewTransition to={`/items/${c.itemId}`} className="transition-colors hover:text-accent">
                 {c.title}
               </IntentLink>
@@ -309,7 +313,11 @@ function FrontPage({ report, pages, leadStory, count }: { report: ReportDetail; 
         <Kicker>{byEvent ? "头条" : "本期导读"}</Kicker>
         {cover && wide && <LeadPicture cover={cover} onError={() => setBroken(cover.url)} priority className="order-2 mt-5 @[560px]:order-1" />}
         <h2 className="order-1 mt-4 text-[32px] font-black leading-[1.28] tracking-[-0.03em] text-ink [text-wrap:balance] @[520px]:text-[40px] @[560px]:order-2 @[1040px]:text-[48px] @[1040px]:leading-[1.22]">
-          {leadStory?.itemId ? (
+          {leadStory?.sourceUrl ? (
+            <a href={leadStory.sourceUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
+              {title}
+            </a>
+          ) : leadStory?.itemId ? (
             <IntentLink viewTransition to={`/items/${leadStory.itemId}`} className="transition-colors hover:text-accent">
               {title}
             </IntentLink>
@@ -340,7 +348,7 @@ function FrontPage({ report, pages, leadStory, count }: { report: ReportDetail; 
             <ol className="mt-2">
               {highlights.map((h, i) => {
                 const anchor = anchorOf(h);
-                const to = anchor && inPage.has(h.itemId) ? `#${anchor}` : h.itemId ? `/items/${h.itemId}` : h.sourceUrl;
+                const to = anchor && inPage.has(h.itemId) ? `#${anchor}` : h.sourceUrl ?? (h.itemId ? `/items/${h.itemId}` : "/daily");
                 if (!h.available) {
                   return (
                     <li key={keyOf(h)} className="flex gap-3.5 border-b border-line py-4">
@@ -536,6 +544,10 @@ export function ReportPaper({ report, index }: { report: ReportDetail; index: Re
                       <span className="line-through">{f.title}</span>
                       <span className="ml-2 text-[12px]">{WITHDRAWN_NOTE}</span>
                     </span>
+                  ) : f.sourceUrl ? (
+                    <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-ink transition-colors hover:text-accent">
+                      {f.title}
+                    </a>
                   ) : f.itemId ? (
                     <Link viewTransition to={`/items/${f.itemId}`} className="text-ink transition-colors hover:text-accent">
                       {f.title}

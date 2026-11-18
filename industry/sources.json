@@ -1,368 +1,263 @@
 {
-  "$comment": "示范信源：首次启动时导入（scripts/seed.ts），已存在的不会被覆盖。之后在后台“信源”里新建、修改和暂停。字段说明见 docs/customize.md。",
+  "$comment": "战略日报信源清单：官方一手渠道 + 头部咨询机构 + 国内外优质媒体，覆盖服务器/PC 整机、上游物料、中间制造、大客户、贸易合规、友商动向六大方向。不收小道消息与把握不准的信息源。首次启动时导入（scripts/seed.ts），已存在的不会被覆盖；之后在后台“信源”里新建、修改和暂停。标注 [待验证] 的 feed 需在后台“试抓”确认可达。",
   "sources": [
     {
-      "id": "rss-openai-news",
-      "name": "OpenAI News",
+      "id": "rss-nvidia-news",
+      "name": "NVIDIA Newsroom",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": "openai",
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-google-deepmind",
-      "name": "Google DeepMind",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://deepmind.google/blog/rss.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": "google",
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-google-research",
-      "name": "Google Research",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://research.google/blog/rss/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": "google",
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "研究"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-hugging-face",
-      "name": "Hugging Face Blog",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://huggingface.co/blog/feed.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": "hugging-face",
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "开源"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-microsoft-research",
-      "name": "Microsoft Research",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://www.microsoft.com/en-us/research/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": "microsoft",
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "研究"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-nvidia-blog",
-      "name": "NVIDIA Blog",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://blogs.nvidia.com/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
+      "config": { "feedUrl": "https://nvidianews.nvidia.com/rss", "_aihot": { "initialBackfillLimit": 80 } },
       "tier": "T1",
       "owner_entity_id": "nvidia",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
+      "interval_minutes": 240,
+      "tags": ["官方", "上游物料"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-aws-ml",
-      "name": "AWS Machine Learning Blog",
+      "id": "rss-amd-ir",
+      "name": "AMD 投资者关系新闻稿",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://aws.amazon.com/blogs/machine-learning/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
+      "config": { "feedUrl": "https://ir.amd.com/news-events/press-releases/rss", "_aihot": { "initialBackfillLimit": 80 } },
       "tier": "T1",
-      "owner_entity_id": null,
+      "owner_entity_id": "amd",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "教程"
-      ],
+      "interval_minutes": 360,
+      "tags": ["官方", "上游物料"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-github-ai",
-      "name": "GitHub Blog · AI & ML",
+      "id": "rss-intel-ir",
+      "name": "Intel 投资者关系新闻稿 [替代被反爬的 newsroom feed·待验证]",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://github.blog/ai-and-ml/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
+      "config": { "feedUrl": "https://www.intc.com/news-events/press-releases/feed", "_aihot": { "initialBackfillLimit": 80 } },
       "tier": "T1",
-      "owner_entity_id": null,
+      "owner_entity_id": "intel",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
+      "interval_minutes": 360,
+      "tags": ["官方", "上游物料"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-mistral",
-      "name": "Mistral AI",
+      "id": "rss-tsmc-news",
+      "name": "TSMC Newsroom",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://mistral.ai/news/rss",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
+      "config": { "feedUrl": "https://pr.tsmc.com/english/news", "_aihot": { "initialBackfillLimit": 80 } },
       "tier": "T1",
-      "owner_entity_id": null,
+      "owner_entity_id": "tsmc",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
+      "interval_minutes": 360,
+      "tags": ["官方", "上游物料"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-bair",
-      "name": "Berkeley AI Research",
+      "id": "rss-samsung-news",
+      "name": "Samsung Newsroom",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://bair.berkeley.edu/blog/feed.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
+      "config": { "feedUrl": "https://news.samsung.com/global/rss", "_aihot": { "initialBackfillLimit": 80 } },
       "tier": "T1",
-      "owner_entity_id": null,
+      "owner_entity_id": "samsung",
       "participation_mode": "editorial",
-      "interval_minutes": 180,
-      "tags": [
-        "研究"
-      ],
+      "interval_minutes": 360,
+      "tags": ["官方", "上游物料"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-the-verge-ai",
-      "name": "The Verge · AI",
+      "id": "rss-apple-news",
+      "name": "Apple Newsroom",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
+      "config": { "feedUrl": "https://www.apple.com/newsroom/rss-feed.rss", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T1",
+      "owner_entity_id": "apple",
       "participation_mode": "editorial",
-      "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
+      "interval_minutes": 360,
+      "tags": ["官方", "PC"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-techcrunch-ai",
-      "name": "TechCrunch · AI",
+      "id": "rss-quanta-news",
+      "name": "Quanta 广达新闻 [待验证]",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://techcrunch.com/category/artificial-intelligence/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
+      "config": { "feedUrl": "https://www.quantatw.com/Quanta/english/news_rss.aspx", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T1",
+      "owner_entity_id": "quanta",
       "participation_mode": "editorial",
-      "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
+      "interval_minutes": 360,
+      "tags": ["官方", "ODM/EMS"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-ars-technica-ai",
-      "name": "Ars Technica · AI",
+      "id": "rss-trendforce-press",
+      "name": "TrendForce 集邦咨询",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://arstechnica.com/ai/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
+      "config": { "feedUrl": "https://www.trendforce.com/presscenter/news", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T1_5",
       "owner_entity_id": null,
       "participation_mode": "editorial",
-      "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
+      "interval_minutes": 360,
+      "tags": ["研究机构", "市场"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-mit-tech-review-ai",
-      "name": "MIT Technology Review · AI",
+      "id": "rss-idc-press",
+      "name": "IDC 新闻室 [待验证]",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
+      "config": { "feedUrl": "https://www.idc.com/getrssfeed.aspx?id=pressreleases", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T1_5",
       "owner_entity_id": null,
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "媒体"
-      ],
+      "interval_minutes": 360,
+      "tags": ["研究机构", "市场"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-the-decoder",
-      "name": "The Decoder",
+      "id": "rss-counterpoint",
+      "name": "Counterpoint Research [待验证]",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://the-decoder.com/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
+      "config": { "feedUrl": "https://www.counterpointresearch.com/feed/", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T1_5",
       "owner_entity_id": null,
       "participation_mode": "editorial",
-      "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
+      "interval_minutes": 360,
+      "tags": ["研究机构", "市场"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-simon-willison",
-      "name": "Simon Willison",
+      "id": "rss-digitimes",
+      "name": "DigiTimes",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://simonwillison.net/atom/everything/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "个人"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-import-ai",
-      "name": "Import AI",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://importai.substack.com/feed",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
+      "config": { "feedUrl": "https://www.digitimes.com/rss/daily.xml", "_aihot": { "initialBackfillLimit": 80 } },
       "tier": "T2",
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": [
-        "个人",
-        "周刊"
-      ],
+      "tags": ["媒体", "供应链"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-latent-space",
-      "name": "Latent Space",
+      "id": "rss-servethehome",
+      "name": "ServeTheHome",
       "kind": "rss",
-      "config": {
-        "feedUrl": "https://www.latent.space/feed",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
+      "config": { "feedUrl": "https://www.servethehome.com/feed/", "_aihot": { "initialBackfillLimit": 80 } },
       "tier": "T2",
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": [
-        "个人"
-      ],
+      "tags": ["媒体", "服务器"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-tomshardware",
+      "name": "Tom's Hardware",
+      "kind": "rss",
+      "config": { "feedUrl": "https://www.tomshardware.com/feeds/all", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": ["媒体", "产品"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-eetimes",
+      "name": "EE Times",
+      "kind": "rss",
+      "config": { "feedUrl": "https://www.eetimes.com/feed/", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["媒体", "半导体"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-the-register",
+      "name": "The Register [待验证]",
+      "kind": "rss",
+      "config": { "feedUrl": "https://www.theregister.com/Feed/", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["媒体", "数据中心"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-datacenterdynamics",
+      "name": "Data Center Dynamics [待验证]",
+      "kind": "rss",
+      "config": { "feedUrl": "https://www.datacenterdynamics.com/feeds/rss/", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["媒体", "大客户"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-36kr",
+      "name": "36氪 [国内优质媒体·覆盖阿里/腾讯/字节等客户动态]",
+      "kind": "rss",
+      "config": { "feedUrl": "https://36kr.com/feed", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": ["媒体", "大客户"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-manufacturing-dive",
+      "name": "Manufacturing Dive",
+      "kind": "rss",
+      "config": { "feedUrl": "https://www.manufacturingdive.com/feeds/news/", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["媒体", "制造"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-ifr",
+      "name": "IFR · International Federation of Robotics",
+      "kind": "rss",
+      "config": { "feedUrl": "https://ifr.org/ifr-press-releases/rss", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T1",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 720,
+      "tags": ["协会", "制造"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-the-robot-report",
+      "name": "The Robot Report",
+      "kind": "rss",
+      "config": { "feedUrl": "https://www.therobotreport.com/feed/", "_aihot": { "initialBackfillLimit": 80 } },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": ["媒体", "制造"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     }

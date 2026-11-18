@@ -12,15 +12,15 @@ export const SELECTION = {
    */
   thresholds: { T1: 60, T1_5: 65, T2: 76 } as Record<string, number>,
   /**
-   * 信源类别 → 门槛下限。分级只说明来源是不是官方、一手；有些官方信源的日常内容主要写给开发者或业内，
+   * 信源类别 → 门槛下限。分级只说明来源是不是官方、一手；有些官方信源的日常内容主要写给业内或投资人，
    * 读者要看的只是其中的大事，就在后台“信源”里给它一个类别，门槛抬到不低于这里的数。
    * 只抬不降：分级门槛本来就更高的（媒体）不受影响。没有类别的信源只按分级。
-   *   ecosystem 生态与基础设施：芯片与硬件、推理与云服务、模型托管、开发框架与工具链、安全研究厂商、工程与开发者博客
-   *   leaderboard 评测榜单：给各家模型跑分、排名的评测机构
+   *   corporate_news 公司新闻稿：原厂 newsroom 里面向投资人与市场的常规发布，多为产品 PR、财报与人事
+   *   research 研究机构：咨询与分析机构（McKinsey、ARC、Interact Analysis 等）的行业报告与观点
    */
   classes: {
-    ecosystem: { label: "生态与基础设施", threshold: 70 },
-    leaderboard: { label: "评测榜单", threshold: 76 },
+    corporate_news: { label: "公司新闻稿", threshold: 70 },
+    research: { label: "研究机构", threshold: 72 },
   } as Record<string, { label: string; threshold: number }>,
   /**
    * 没入选、但平均分高于这个数的资料，也用精选的写法（内容理解：标题、摘要、推荐理由）来写，

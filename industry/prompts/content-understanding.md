@@ -10,17 +10,17 @@
 
 `itemType` 必须七选一：
 
-- `model_release`：新模型或大版本更新
-- `product_launch`：新产品、工具或重大功能更新
-- `tool_or_prompt`：可直接复用的方法、Prompt、Skill 或技巧
-- `research_paper`：论文、研究或技术报告
-- `industry_event`：融资、收购、监管、诉讼、商业动作或人事
-- `opinion_analysis`：观点、行业判断、复盘或长访谈
-- `tutorial_explainer`：教程、科普、解读或评测
+- `product_launch`：PC、笔记本、服务器整机或核心零部件（CPU/GPU/内存/存储/面板/主板等）的新品发布与重大更新，以及自动化装备、工业软件的新品发布
+- `market_data`：PC/服务器出货量、市场份额、行业景气、数据中心资本开支等市场与销量数据
+- `factory_investment`：建厂、扩产、关厂、产线投资与产能落地，以及 ODM/EMS 代工订单与产能转移
+- `policy_change`：关税、出口管制、补贴、法规、标准等政策变化
+- `supply_shift`：供应商变更、芯片/存储/面板等零部件短缺过剩、物流与供应链风险事件
+- `industry_event`：财报订单、并购合作、人事、事故或市场格局变化
+- `report_analysis`：行业研究、景气报告、技术趋势或深度分析
 
-优先级：发了模型选 model_release；发了工具选 product_launch；发了 Prompt 或方法选 tool_or_prompt；论文优先 research_paper；评测选 tutorial_explainer。原文把发布写成过去的事、本条在讲用法或做演示时，不算本次发布，选 tutorial_explainer。
+优先级：新品或重大更新选 product_launch；出货量与市场数据选 market_data；建厂扩产选 factory_investment；政策法规选 policy_change；供应链事件选 supply_shift；研究报告优先 report_analysis；公司经营与人事选 industry_event。原文把发布写成过去的事、本条在讲用法或做演示时，不算本次发布，按当前材料重心另选。
 
-输出前检查 `itemType` 与第一个分类标签是否自洽：`model_release` 对应“模型发布”，`product_launch` 对应“产品更新”，`research_paper` 对应“论文/研究”，`industry_event` 对应“行业动态”或“政策/监管”，`opinion_analysis` 对应“大佬观点”或“现象/趋势”，`tutorial_explainer` 对应“教程/实践”或“评测/基准”。如果二者冲突，按当前材料的核心事件修正后再输出。
+输出前检查 `itemType` 与第一个分类标签是否自洽：`product_launch` 对应“服务器/整机”“PC/整机”或“上游物料”，`market_data` 对应“报告/研究”或“友商/行业”，`factory_investment` 对应“制造/自动化”或“友商/行业”，`policy_change` 对应“贸易/合规”，`supply_shift` 对应“上游物料”或“贸易/合规”，`report_analysis` 对应“报告/研究”，`industry_event` 对应“友商/行业”或“大客户”。如果二者冲突，按当前材料的核心事件修正后再输出。
 
 ## 作者角色
 
@@ -32,14 +32,14 @@
 
 ## 标签
 
-`tags` 输出 1–6 个字符串。第一个必须从以下分类标签中选一个：模型发布、产品更新、开源/仓库、论文/研究、教程/实践、大佬观点、评测/基准、安全/对齐、现象/趋势、行业动态、政策/监管、非AI/通用工具、其他。
+`tags` 输出 1–6 个字符串。第一个必须从以下分类标签中选一个：服务器/整机、PC/整机、上游物料、制造/自动化、大客户、贸易/合规、友商/行业、报告/研究、其他。
 
 其后可选 0–5 个适用标签，并且只能来自以下两个白名单：
 
-- 主题：Agent、编码、推理、多模态、语音、视频、图像生成、RAG、端侧、数据/训练、搜索、部署/工程、开源生态、具身智能、MCP/工具调用
-- 实体：OpenAI、Anthropic、DeepSeek、DeepMind、Google、Meta、Microsoft、xAI、Hugging Face、GitHub、arXiv
+- 主题：服务器、AI服务器、笔记本、台式机、工作站、CPU、GPU、内存、存储、SSD、HDD、HBM、主板、电源、散热、面板/显示、ODM/EMS、SMT、数据中心、液冷、自动化、工业机器人、AGV/AMR、机器视觉、工业软件、灯塔工厂、新工厂、扩产、关厂、关税、出口管制、物流、亚太、欧洲、北美、拉美、中东非、中国、德国、日本、韩国、美国、印度、东南亚
+- 实体：Lenovo、Dell、HP、HPE、Apple、Asus、Acer、Quanta、Wistron、Compal、Pegatron、Inventec、Foxconn、NVIDIA、AMD、Intel、TSMC、Samsung、SK Hynix、Micron、Seagate、Western Digital、Microsoft、Alibaba、Tencent、ByteDance、Amazon、Google
 
-正文中即使明确出现了 NVIDIA、Apple、阿里等其他实体，也不要把它们放进 `tags`。不要创造白名单之外的标签。没有适用的主题或实体时，只返回第一个分类标签；例如学校限制 AI 使用的监管新闻，不需要强行归到“编码”或“推理”。
+正文中即使明确出现了其他公司，也不要把它们放进 `tags`。不要创造白名单之外的标签。没有适用的主题或实体时，只返回第一个分类标签。
 
 ## 候选阅读价值
 
@@ -51,7 +51,7 @@
 
 ## 中文标题和摘要
 
-`titleZh` 必须是自洽的中文标题，包含事件主体以及动作或结果。保留必要的模型名、产品名、版本号、机构名和关键数字，不写“最新动态”“引发关注”等空话。原标题已经是中文时也要保证脱离来源名后仍能独立理解。
+`titleZh` 必须是自洽的中文标题，包含事件主体以及动作或结果。保留必要的产品名、型号、版本号、机构名和关键数字，不写“最新动态”“引发关注”等空话。原标题已经是中文时也要保证脱离来源名后仍能独立理解。
 
 `summaryZh` 必须忠实使用当前材料。短 X 推文完整翻译作者自己的主推文；长推文或文章先写核心事实，再写一层关键细节或影响。保留关键数字、版本、机构、模型和 URL；引用内容只作上下文，不冒充主推作者自己的话。
 
@@ -59,4 +59,4 @@
 
 只返回合法 JSON，不要 Markdown，不要解释。顶层必须且只能包含以下六个字段：
 
-{"itemType":"product_launch","authorRole":"principal","tags":["产品更新","Agent"],"editorialJudgment":"原文给出了能力变化和开放入口，读者可以据此判断它会怎样改变现有工作流。","titleZh":"某产品发布智能体功能","summaryZh":"某产品发布新的智能体功能，给出了开放入口和主要能力变化。"}
+{"itemType":"factory_investment","authorRole":"principal","tags":["友商/行业","服务器","北美"],"editorialJudgment":"原文给出了产能规模和投产时间，读者可以据此判断北美 AI 服务器产能的供需变化。","titleZh":"某厂商宣布扩建 AI 服务器工厂","summaryZh":"某厂商宣布在北美扩建 AI 服务器工厂，给出规划产能与投产时间表。"}

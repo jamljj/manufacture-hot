@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { NAV, subjectAfter, withSubject } from "@aihot/site";
 import { webModules } from "../../site-modules";
 import {
-  IconBolt, IconBookmark, IconDoc, IconFlame, IconGrid, IconHeart, IconHistory, IconList, IconMessage, IconPlug, IconUser,
+  IconBolt, IconBookmark, IconDoc, IconFlame, IconGrid, IconList, IconUser,
 } from "../icons";
 
 export interface NavItem {
@@ -29,15 +29,6 @@ const SECTIONS: Array<{ title: string; items: NavItem[] }> = [
       { to: "/daily", label: withSubject("日报"), icon: IconDoc, covers: ["/weekly", "/monthly"] },
       { to: "/topics", label: "主题", icon: IconGrid },
       { to: "/starred", label: "收藏", icon: IconBookmark },
-    ],
-  },
-  {
-    title: "更多",
-    items: [
-      { to: "/agent", label: "Agent 接入", icon: IconPlug },
-      { to: "/about", label: "关于", icon: IconHeart },
-      { to: "/changelog", label: "更新日志", icon: IconHistory, changelog: true },
-      { to: "/feedback", label: "反馈", icon: IconMessage },
     ],
   },
 ];
@@ -66,7 +57,7 @@ export function navUp(entry: keyof typeof UP): { to: string; name: string; back:
  */
 export function sidebar(): Array<{ title: string; items: NavItem[] }> {
   const [content, ...rest] = SECTIONS;
-  const more = rest.pop()!;
+  const more = rest.pop();
   const sections = [content!, ...rest].map((s) => ({ ...s, items: s.items.filter((i) => inNav(i.to)) }));
   for (const m of webModules()) {
     if (!m.sidebar) continue;
@@ -74,7 +65,7 @@ export function sidebar(): Array<{ title: string; items: NavItem[] }> {
     if (section) section.items.push(...m.sidebar.items);
     else sections.push({ title: m.sidebar.section, items: [...m.sidebar.items] });
   }
-  return [...sections, more];
+  return more ? [...sections, more] : sections;
 }
 
 /** A sidebar entry is lit on its pages and the ones it covers (日报 also covers weekly and monthly reports). */
